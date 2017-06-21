@@ -1,0 +1,8 @@
+apply plugin: 'kotlin'
+
+dependencies {
+    compile project(':domain')
+
+    // Rx
+    compile "com.jakewharton.rxrelay2:rxrelay:$rxRelayVersion"
+}

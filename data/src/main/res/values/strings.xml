@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Todo App</string>
+    <string name="create_todo">Create Todo</string>
+    <string name="modify_todo">Modify Todo</string>
+    <string name="generic_error">Something Bad Happened</string>
+    <string name="empty_title_error">Title cannot be blank</string>
+    <string name="title_hint">Todo Title</string>
+    <string name="body_hint">Todo Body</string>
+    <string name="save">Save</string>
+</resources>

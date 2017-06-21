@@ -1,0 +1,7 @@
+apply plugin: 'kotlin'
+
+dependencies {
+    compile project(path: ":domain")
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "com.jakewharton.rxrelay2:rxrelay:$rxRelayVersion"
+}
