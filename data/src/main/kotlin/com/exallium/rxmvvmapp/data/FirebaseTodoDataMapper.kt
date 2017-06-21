@@ -9,7 +9,6 @@ import io.reactivex.Completable
 import io.reactivex.Emitter
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
-import java.util.concurrent.Callable
 
 class FirebaseTodoDataMapper : TodoGateway.DataMapper {
 
