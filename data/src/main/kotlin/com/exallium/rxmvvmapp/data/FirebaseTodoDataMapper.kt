@@ -8,12 +8,14 @@ import com.google.firebase.database.*
 import io.reactivex.Completable
 import io.reactivex.Emitter
 import io.reactivex.Observable
+import io.reactivex.Scheduler
 import io.reactivex.schedulers.Schedulers
 
-class FirebaseTodoDataMapper : TodoGateway.DataMapper {
-
-    private val db = FirebaseDatabase.getInstance()
-    private val auth = FirebaseAuth.getInstance()
+class FirebaseTodoDataMapper(
+        private val db: FirebaseDatabase = FirebaseDatabase.getInstance(),
+        private val auth: FirebaseAuth = FirebaseAuth.getInstance(),
+        private val networkScheduler : Scheduler = Schedulers.io()
+) : TodoGateway.DataMapper {
 
     /**
      * Saves a node to:
@@ -43,7 +45,7 @@ class FirebaseTodoDataMapper : TodoGateway.DataMapper {
     override fun getAllTodos(): Observable<List<Todo>> =
             { todoDatabaseReference() }.observe()
                     .map { it.children.map { it.toTodo() } }
-                    .subscribeOn(Schedulers.io())
+                    .subscribeOn(networkScheduler)
 
     /**
      * Attempts to read and return /uid/id
@@ -51,7 +53,7 @@ class FirebaseTodoDataMapper : TodoGateway.DataMapper {
     override fun getTodoById(id: String): Observable<Todo> =
             { todoDatabaseReference().child(id) }.observe()
                     .map { it.toTodo() }
-                    .subscribeOn(Schedulers.io())
+                    .subscribeOn(networkScheduler)
 
     private fun (() -> DatabaseReference).observe(): Observable<DataSnapshot> = Observable.create { emitter ->
         val dbRef = this()

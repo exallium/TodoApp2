@@ -3,20 +3,20 @@ package com.exallium.rxmvvmapp.recyclers
 import android.databinding.DataBindingUtil
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.exallium.rxmvvmapp.R
 import com.exallium.rxmvvmapp.databinding.TodoListItemBinding
 import com.exallium.rxmvvmapp.domain.Todo
-import com.exallium.rxmvvmapp.presentation.DisposableDelegate
+import com.exallium.rxmvvmapp.presentation.CompositeDisposables.plusAssign
 import com.exallium.rxmvvmapp.presentation.viewmodels.TodoListItemsViewModel
+import io.reactivex.disposables.CompositeDisposable
 
 class TodoListAdapter(private val viewModel: TodoListItemsViewModel)
     : RecyclerView.Adapter<TodoListItemViewHolder>() {
 
     var todoList = listOf<Todo>()
-    val disposables = DisposableDelegate()
+    val disposables = CompositeDisposable()
 
     fun updateList(todoList: List<Todo>) {
         val oldList = this.todoList

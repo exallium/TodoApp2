@@ -5,15 +5,16 @@ import com.exallium.rxmvvmapp.domain.TitleCannotBeBlankException
 import com.exallium.rxmvvmapp.domain.Todo
 import com.exallium.rxmvvmapp.domain.repos.StringRepository
 import com.exallium.rxmvvmapp.domain.repos.TodoRepository
-import com.exallium.rxmvvmapp.presentation.DisposableDelegate
+import com.exallium.rxmvvmapp.presentation.CompositeDisposables.plusAssign
 import com.exallium.rxmvvmapp.presentation.services.ToolbarService
 import com.jakewharton.rxrelay2.PublishRelay
 import io.reactivex.Observable
+import io.reactivex.disposables.CompositeDisposable
 
 class AddTodoViewModel(private val toolbarService: ToolbarService,
                        private val stringRepository: StringRepository,
                        private val todoRepository: TodoRepository,
-                       private val disposables: DisposableDelegate = DisposableDelegate()) {
+                       private val disposables: CompositeDisposable = CompositeDisposable()) {
 
     sealed class UiAction {
         class DisplayContent(val content: Todo): UiAction()

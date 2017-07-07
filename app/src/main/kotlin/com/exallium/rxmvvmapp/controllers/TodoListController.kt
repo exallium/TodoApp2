@@ -13,15 +13,16 @@ import com.exallium.rxmvvmapp.R
 import com.exallium.rxmvvmapp.TodoApp
 import com.exallium.rxmvvmapp.databinding.TodoListBinding
 import com.exallium.rxmvvmapp.domain.NONE
-import com.exallium.rxmvvmapp.presentation.DisposableDelegate
+import com.exallium.rxmvvmapp.presentation.CompositeDisposables.plusAssign
 import com.exallium.rxmvvmapp.presentation.viewmodels.TodoListItemsViewModel
 import com.exallium.rxmvvmapp.presentation.viewmodels.TodoListViewModel
 import com.exallium.rxmvvmapp.recyclers.TodoListAdapter
 import com.jakewharton.rxbinding2.view.clicks
+import io.reactivex.disposables.CompositeDisposable
 
 class TodoListController(injector: Injector = TodoApp.INJECTOR) : Controller() {
 
-    private val disposables = DisposableDelegate()
+    private val disposables = CompositeDisposable()
 
     private val viewModel = injector.getTodoListComponent().viewModel()
     private val itemsViewModel = injector.getTodoListComponent().itemsViewModel()

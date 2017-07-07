@@ -8,12 +8,13 @@ import com.bluelinelabs.conductor.Router
 import com.bluelinelabs.conductor.RouterTransaction
 import com.exallium.rxmvvmapp.controllers.TodoListController
 import com.exallium.rxmvvmapp.databinding.MainActivityBinding
-import com.exallium.rxmvvmapp.presentation.DisposableDelegate
+import com.exallium.rxmvvmapp.presentation.CompositeDisposables.plusAssign
+import io.reactivex.disposables.CompositeDisposable
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var pageRouter: Router
-    private val disposables = DisposableDelegate()
+    private val disposables = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

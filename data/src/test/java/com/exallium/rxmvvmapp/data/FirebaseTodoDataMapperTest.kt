@@ -7,6 +7,7 @@ import com.google.firebase.database.ValueEventListener
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
+import io.reactivex.schedulers.TestScheduler
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Answers
@@ -20,7 +21,6 @@ class FirebaseTodoDataMapperTest {
         const val USER_ID = "user_id"
     }
 
-    @InjectMocks
     lateinit var testSubject: FirebaseTodoDataMapper
 
     @Mock(answer = Answers.RETURNS_DEEP_STUBS)
@@ -32,17 +32,22 @@ class FirebaseTodoDataMapperTest {
     @Mock
     lateinit var user: FirebaseUser
 
+    val testScheduler = TestScheduler()
+
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
         whenever(user.uid).thenReturn(USER_ID)
         whenever(auth.currentUser).thenReturn(user)
+        testSubject = FirebaseTodoDataMapper(database, auth, testScheduler)
     }
 
     @Test
     fun getAllTodos_dispose_removesValueEventListener() {
         // WHEN
-        testSubject.getAllTodos().subscribe().dispose()
+        val disposable = testSubject.getAllTodos().subscribe()
+        testScheduler.triggerActions()
+        disposable.dispose()
 
         // THEN
         verify(database.getReference(USER_ID)).removeEventListener(any<ValueEventListener>())

@@ -8,12 +8,13 @@ import com.exallium.rxmvvmapp.*
 import com.exallium.rxmvvmapp.databinding.AddTodoBinding
 import com.exallium.rxmvvmapp.domain.NONE
 import com.exallium.rxmvvmapp.domain.Todo
-import com.exallium.rxmvvmapp.presentation.DisposableDelegate
+import com.exallium.rxmvvmapp.presentation.CompositeDisposables.plusAssign
 import com.exallium.rxmvvmapp.presentation.viewmodels.AddTodoViewModel
+import io.reactivex.disposables.CompositeDisposable
 
 class AddTodoController(private val todoId: String = NONE,
                         injector: Injector = TodoApp.INJECTOR,
-                        private val disposables: DisposableDelegate = DisposableDelegate())
+                        private val disposables: CompositeDisposable = CompositeDisposable())
     : Controller() {
 
     private val viewModel = injector.getAddTodoComponent().viewModel()
